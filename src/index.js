@@ -41,7 +41,7 @@ app.get("/script.js", (req, res) => {
 
 app.post("/signup", async (req, res) => {
     try {
-        const existingUser = await collection.findOne({ name: req.body.name });
+        const existingUser = await collection.findOne({ email: req.body.email });
 
         if (existingUser) {
             res.send("Taki użytkownik już istnieje");
@@ -49,7 +49,7 @@ app.post("/signup", async (req, res) => {
             const hashedPassword = await bcrypt.hash(req.body.password, 10);
 
             const data = {
-                name: req.body.name,
+                email: req.body.email,
                 password: hashedPassword,
                 phoneNumber: req.body.phoneNumber,
                 city: req.body.city,
@@ -66,7 +66,7 @@ app.post("/signup", async (req, res) => {
 });
 app.post("/login", async (req, res) => {
     try {
-        const user = await collection.findOne({ name: req.body.name });
+        const user = await collection.findOne({ email: req.body.email });
 
         if (user) {
             const passwordMatch = await bcrypt.compare(req.body.password, user.password);
