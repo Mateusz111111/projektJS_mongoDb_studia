@@ -44,13 +44,16 @@ app.post("/signup", async (req, res) => {
         const existingUser = await collection.findOne({ name: req.body.name });
 
         if (existingUser) {
-            res.send("User with this name already exists");
+            res.send("Taki użytkownik już istnieje");
         } else {
             const hashedPassword = await bcrypt.hash(req.body.password, 10);
 
             const data = {
                 name: req.body.name,
                 password: hashedPassword,
+                phoneNumber: req.body.phoneNumber,
+                city: req.body.city,
+                streetAddress: req.body.streetAddress
             }
 
             await collection.insertMany([data])
@@ -58,7 +61,7 @@ app.post("/signup", async (req, res) => {
         }
     } catch (error) {
         console.error(error);
-        res.send("An error occurred");
+        res.send("Wystąpił błąd");
     }
 });
 app.post("/login", async (req, res) => {
@@ -71,14 +74,14 @@ app.post("/login", async (req, res) => {
             if (passwordMatch) {
                 res.render("home");
             } else {
-                res.send("Wrong password");
+                res.send("Złe hasło");
             }
         } else {
-            res.send("User not found");
+            res.send("Nie znaleniono użytkownika");
         }
     } catch (error) {
         console.error(error);
-        res.send("An error occurred");
+        res.send("Wystąpił błąd");
     }
 });
 

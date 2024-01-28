@@ -93,7 +93,7 @@ let score = 0;
 function startQuiz(){
     currentQuestionIndex = 0;
     score = 0;
-    nextButton.innerHTML = "Next";
+    nextButton.innerHTML = "Następny";
     showQuestion();
 }
 
@@ -143,11 +143,35 @@ function selectAnswer(e){
     nextButton.style.display = "block";
 }
 
-function showScore(){
+function showScore() {
     resetState();
-    questionElement.innerHTML = `Gratulacje udalo ci sie zdobyc ${score} na ${questions.length} punkty!`;
-    nextButton.innerHTML = "Sprobuj Ponownie";
-    nextButton.style.display = "block";
+    switch (score) {
+        
+        case 1:
+            questionElement.innerHTML = `Gratulacje udało ci się zdobyć ${score} punkt na ${questions.length}!`;
+            tryAgainDisplay();
+            break;
+        case 2:
+        case 3:
+        case 4:
+            questionElement.innerHTML = `Gratulacje udało ci się zdobyć ${score} punkty na ${questions.length}!`;
+            tryAgainDisplay()
+            break;
+        case 0:
+        case 5:
+        case 6:
+        case 7:
+        case 8:
+        case 9:
+            questionElement.innerHTML = `Gratulacje udało ci się zdobyć ${score} punktów na ${questions.length}!`;
+            tryAgainDisplay()
+            break;
+    }
+
+    function tryAgainDisplay() {
+        nextButton.innerHTML = "Spróbuj Ponownie";
+        nextButton.style.display = "block";
+    }
 }
 
 function handleNextButton(){

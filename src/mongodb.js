@@ -16,6 +16,18 @@ const LogInSchema = new mongoose.Schema({
     password: {
         type: String,
         required: true    
+    },
+    phoneNumber: {
+        type: Intl,
+        required: true    
+    },
+    city: {
+        type: String,
+        required: true
+    },
+    streetAddress: {
+        type: String,
+        required: true
     }
 })
 
